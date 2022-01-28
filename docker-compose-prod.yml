@@ -116,6 +116,14 @@ services:
     networks:
       - spring
 
+  #twitter-client:
+  #  build: ./frontend/twitter-client
+  #  container_name: twitter-client
+  #  ports:
+  #    - "3000:80"
+  #  networks:
+  #    - spring
+
 networks:
   postgres:
     driver: bridge
