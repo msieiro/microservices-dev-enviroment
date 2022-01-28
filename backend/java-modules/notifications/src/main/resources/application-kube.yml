@@ -1,0 +1,27 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: notifications
+  zipkin:
+    base-url: http://zipkin:9411
+  rabbitmq:
+    addresses: amqp://rabbitmq:5672
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+    enabled: false
+    healthcheck:
+      enabled: true
+
+rabbitmq:
+  exchanges:
+    internal: internal.exchange
+  queue:
+    notifications: notifications.queue
+  routing-keys:
+    internal-notifications: internal.notifications.routing-key

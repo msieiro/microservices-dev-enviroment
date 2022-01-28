@@ -1,0 +1,28 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: tweets
+  datasource:
+    password: postgres
+    url: jdbc:postgresql://localhost:5433/tweets
+    username: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+    open-in-view: false
+  zipkin:
+    base-url: http://localhost:9411
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+    healthcheck:
+      enabled: true
