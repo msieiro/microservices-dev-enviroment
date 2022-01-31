@@ -1,6 +1,5 @@
-package com.msieiro.notifications.infrastructure.controller;
+package com.msieiro.notifications.application;
 
-import com.msieiro.notifications.application.CreatedAccountNotificationService;
 import com.msieiro.shared.domain.CreatedAccountNotificationRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
