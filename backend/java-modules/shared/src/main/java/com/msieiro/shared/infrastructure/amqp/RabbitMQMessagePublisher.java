@@ -1,4 +1,4 @@
-package com.msieiro.shared.application;
+package com.msieiro.shared.infrastructure.amqp;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class RabbitMQMessageProducer {
+public class RabbitMQMessagePublisher {
 
     @Autowired
     private AmqpTemplate amqpTemplate;
@@ -17,4 +17,5 @@ public class RabbitMQMessageProducer {
         amqpTemplate.convertAndSend(exchange, routingKey, payload);
         log.info("Published! to {} using routingKey {}. Payload: {}", exchange, routingKey, payload);
     }
+
 }

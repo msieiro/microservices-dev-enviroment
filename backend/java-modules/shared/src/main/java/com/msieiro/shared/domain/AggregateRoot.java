@@ -11,9 +11,7 @@ public abstract class AggregateRoot extends AuditedEntity {
 
     final public List<DomainEvent> pullDomainEvents() {
         List<DomainEvent> events = domainEvents;
-
         domainEvents = Collections.emptyList();
-
         return events;
     }
 
