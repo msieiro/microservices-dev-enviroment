@@ -4,10 +4,14 @@ package com.msieiro.analytics.application.store;
 import com.msieiro.analytics.domain.*;
 import com.msieiro.shared.domain.Service;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Slf4j
 @Service
-public record DomainEventStorer(DomainEventsRepository repository) {
+public class DomainEventStorer {
+
+    @Autowired
+    private DomainEventsRepository repository;
 
     public void store(
         AnalyticsDomainEventId id,

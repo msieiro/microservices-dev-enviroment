@@ -1,5 +1,7 @@
 package com.msieiro.analytics.domain;
 
-public interface DomainEventsRepository {
-    void save(AnalyticsDomainEvent event);
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface DomainEventsRepository
+    extends JpaRepository<AnalyticsDomainEvent, AnalyticsDomainEventId> {
 }

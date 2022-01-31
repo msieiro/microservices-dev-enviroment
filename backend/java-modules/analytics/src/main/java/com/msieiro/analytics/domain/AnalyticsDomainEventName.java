@@ -1,9 +1,19 @@
 package com.msieiro.analytics.domain;
 
-import com.msieiro.shared.domain.StringValueObject;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-public final class AnalyticsDomainEventName extends StringValueObject {
-    public AnalyticsDomainEventName(String value) {
-        super(value);
+import javax.persistence.Embeddable;
+
+@Embeddable
+@Data
+@EqualsAndHashCode
+@ToString
+public final class AnalyticsDomainEventName{
+    private String eventName;
+    public AnalyticsDomainEventName() { this.eventName = null; }
+    public AnalyticsDomainEventName(String eventName) {
+        this.eventName = eventName;
     }
 }

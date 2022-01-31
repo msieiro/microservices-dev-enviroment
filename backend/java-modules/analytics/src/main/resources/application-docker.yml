@@ -28,3 +28,10 @@ eureka:
     register-with-eureka: true
     healthcheck:
       enabled: true
+rabbitmq:
+  exchanges:
+    internal: internal.exchange
+  queue:
+    domain_events: domain_events.queue
+  routing-keys:
+    internal-domain_events: internal.domain_events.routing-key

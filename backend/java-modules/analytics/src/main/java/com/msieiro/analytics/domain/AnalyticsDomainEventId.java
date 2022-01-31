@@ -1,16 +1,30 @@
 package com.msieiro.analytics.domain;
 
-import com.msieiro.shared.domain.Identifier;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Embeddable;
+import java.io.Serializable;
+import java.util.UUID;
 
 @Embeddable
-public final class AnalyticsDomainEventId extends Identifier {
-    public AnalyticsDomainEventId() {
-        super(null);
+@Data
+@EqualsAndHashCode
+public final class AnalyticsDomainEventId implements Serializable {
+
+    protected String eventId;
+
+    public AnalyticsDomainEventId(String eventId) {
+        ensureValidUuid(eventId);
+        this.eventId = eventId;
     }
 
-    public AnalyticsDomainEventId(String value) {
-        super(value);
+    protected AnalyticsDomainEventId() {
+        this.eventId = null;
+    }
+
+    private void ensureValidUuid(String eventId) throws IllegalArgumentException {
+        UUID.fromString(eventId);
     }
 }
+

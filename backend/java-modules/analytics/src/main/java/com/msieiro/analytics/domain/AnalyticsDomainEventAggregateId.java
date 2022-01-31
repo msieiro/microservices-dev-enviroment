@@ -1,9 +1,30 @@
 package com.msieiro.analytics.domain;
 
-import com.msieiro.shared.domain.Identifier;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-public final class AnalyticsDomainEventAggregateId extends Identifier {
-    public AnalyticsDomainEventAggregateId(String value) {
-        super(value);
+import javax.persistence.Embeddable;
+import java.io.Serializable;
+import java.util.UUID;
+
+@Embeddable
+@Data
+@EqualsAndHashCode
+public final class AnalyticsDomainEventAggregateId{
+
+    protected String aggregateId;
+
+    public AnalyticsDomainEventAggregateId(String aggregateId) {
+        ensureValidUuid(aggregateId);
+        this.aggregateId = aggregateId;
+    }
+
+    protected AnalyticsDomainEventAggregateId() {
+        this.aggregateId = null;
+    }
+
+    private void ensureValidUuid(String aggregateId) throws IllegalArgumentException {
+        UUID.fromString(aggregateId);
     }
 }
+
