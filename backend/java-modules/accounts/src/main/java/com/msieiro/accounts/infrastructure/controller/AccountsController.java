@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("api/v1/accounts")
-record AccountsController(AccountsService accountsService) {
+public record AccountsController(AccountsService accountsService) {
     @PostMapping
     public ResponseEntity<?> registerAccount(@RequestBody AccountRegistrationRequest accountRegistrationRequest) {
         log.info("new AccountRegistrationRequest {}", accountRegistrationRequest);
