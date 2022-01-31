@@ -1,4 +1,4 @@
 package com.msieiro.accounts.application;
 
-public record AccountRegistrationRequest(String id, String firstName, String lastName, String email) {
+public record AccountRegistrationRequest(String id, String email, String password) {
 }

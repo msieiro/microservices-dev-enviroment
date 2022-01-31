@@ -14,7 +14,7 @@ public record AccountsService(AccountRepository accountRepository, RabbitMQMessa
                               RabbitMQEventPublisher rabbitEventPublisher) {
     public void registerAccount(AccountRegistrationRequest request) {
         log.info("AccountsService is going to register an account: {}", request.toString());
-        Account account = Account.create(request.id(), request.firstName(), request.lastName(), request.email());
+        Account account = Account.create(request.id(), request.email(), request.password());
         accountRepository.save(account);
         rabbitMessagePublisher.publish(new CreatedAccountNotificationRequest(request.email(), request.email()), "internal.exchange", "internal.notifications.routing-key");
         rabbitEventPublisher.publishEvents(account.pullDomainEvents(), "internal.exchange","internal.domain_events.routing-key");

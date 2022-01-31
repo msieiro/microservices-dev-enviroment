@@ -11,36 +11,31 @@ import java.util.HashMap;
 @EqualsAndHashCode
 public class CreatedAccountDomainEvent extends DomainEvent {
 
-    private String firstName;
-    private String lastName;
     private String email;
+    private String password;
 
     public CreatedAccountDomainEvent() {
         super(null);
-        this.firstName = null;
-        this.lastName = null;
         this.email = null;
+        this.password = null;
     }
 
-    public CreatedAccountDomainEvent(String aggregateId, String firstName, String lastName, String email) {
+    public CreatedAccountDomainEvent(String aggregateId, String email, String password) {
         super(aggregateId);
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+        this.email = null;
+        this.password = null;
     }
 
     public CreatedAccountDomainEvent(
         String aggregateId,
         String eventId,
         String occurredOn,
-        String name,
-        String lastName,
-        String email
+        String email,
+        String password
     ) {
         super(aggregateId, eventId, occurredOn);
-        this.firstName = name;
-        this.lastName = lastName;
-        this.email = email;
+        this.email = null;
+        this.password = null;
     }
 
     @Override
@@ -51,9 +46,8 @@ public class CreatedAccountDomainEvent extends DomainEvent {
     @Override
     public HashMap<String, Serializable> toPrimitives() {
         return new HashMap<String, Serializable>() {{
-            put("firstName", firstName);
-            put("lastName", lastName);
             put("email", email);
+            put("password", password);
         }};
     }
 
@@ -68,9 +62,8 @@ public class CreatedAccountDomainEvent extends DomainEvent {
             aggregateId,
             eventId,
             occurredOn,
-            (String) body.get("firstName"),
-            (String) body.get("lastName"),
-            (String) body.get("email")
+            (String) body.get("email"),
+            (String) body.get("password")
         );
     }
 

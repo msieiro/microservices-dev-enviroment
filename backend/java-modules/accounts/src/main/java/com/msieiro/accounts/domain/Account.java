@@ -2,35 +2,39 @@ package com.msieiro.accounts.domain;
 
 import com.msieiro.shared.domain.AggregateRoot;
 import com.msieiro.shared.domain.bus.event.accounts.CreatedAccountDomainEvent;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Embedded;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import java.io.Serializable;
 
 @Data
-@Builder
 @NoArgsConstructor
 @Entity
-public final class Account extends AggregateRoot {
+public final class Account extends AggregateRoot implements Serializable {
 
-    @Id
-    private String id;
+    @EmbeddedId
+    private AccountId id;
+    @Embedded
+    private AccountLogin login;
     private String firstName;
     private String lastName;
-    private String email;
 
-    public Account(String id, String firstName, String lastName, String email) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+    public Account(String id, String email, String password) {
+        this.id = new AccountId(id);
+        this.login = AccountLogin.create(email, password);
     }
 
-    public static Account create(String id, String firstName, String lastName, String email) {
-        Account account = new Account(id, firstName, lastName, email);
-        account.record(new CreatedAccountDomainEvent(account.getId(), account.getFirstName(), account.getLastName(), account.getEmail()));
+    public Account(AccountId id, AccountLogin login) {
+        this.id = id;
+        this.login = login;
+    }
+
+    public static Account create(String id, String email, String password) {
+        Account account = new Account(id, email, password);
+        account.record(new CreatedAccountDomainEvent(id, email, password));
         return account;
     }
 }
