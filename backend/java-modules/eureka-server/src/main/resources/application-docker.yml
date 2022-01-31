@@ -9,3 +9,4 @@ eureka:
     register-with-eureka: false
     healthcheck:
       enabled: true
+  renewalPercentThreshold: 0.85
