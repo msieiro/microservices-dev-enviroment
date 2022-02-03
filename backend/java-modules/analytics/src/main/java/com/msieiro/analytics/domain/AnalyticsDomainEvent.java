@@ -27,8 +27,7 @@ public final class AnalyticsDomainEvent extends AuditedEntity implements Seriali
         AnalyticsDomainEventId id,
         AnalyticsDomainEventAggregateId aggregateId,
         AnalyticsDomainEventName name,
-        AnalyticsDomainEventBody body
-    ) {
+        AnalyticsDomainEventBody body) {
         this.id = id;
         this.aggregateId = aggregateId;
         this.name = name;

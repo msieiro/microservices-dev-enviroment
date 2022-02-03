@@ -10,7 +10,7 @@ import java.util.UUID;
 @Embeddable
 @Data
 @EqualsAndHashCode
-public final class AnalyticsDomainEventAggregateId{
+public final class AnalyticsDomainEventAggregateId implements Serializable {
 
     protected String aggregateId;
 
@@ -27,4 +27,3 @@ public final class AnalyticsDomainEventAggregateId{
         UUID.fromString(aggregateId);
     }
 }
-

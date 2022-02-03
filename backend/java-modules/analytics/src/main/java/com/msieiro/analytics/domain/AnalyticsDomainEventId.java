@@ -27,4 +27,3 @@ public final class AnalyticsDomainEventId implements Serializable {
         UUID.fromString(eventId);
     }
 }
-

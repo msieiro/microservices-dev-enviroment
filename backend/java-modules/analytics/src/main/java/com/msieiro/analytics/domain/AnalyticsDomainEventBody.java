@@ -12,11 +12,13 @@ import java.util.HashMap;
 @Data
 @EqualsAndHashCode
 @ToString
-public final class AnalyticsDomainEventBody{
+public final class AnalyticsDomainEventBody implements Serializable {
     private HashMap<String, Serializable> eventBody;
+
     public AnalyticsDomainEventBody(HashMap<String, Serializable> eventBody) {
         this.eventBody = eventBody;
     }
+
     public AnalyticsDomainEventBody() {
         this.eventBody = null;
     }
