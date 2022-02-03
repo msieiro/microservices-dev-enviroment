@@ -9,7 +9,7 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: customer
+        - id: accounts
           uri: lb://ACCOUNTS
           predicates:
             - Path=/api/v1/accounts/**
