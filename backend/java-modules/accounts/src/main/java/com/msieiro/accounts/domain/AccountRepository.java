@@ -1,7 +1,5 @@
-package com.msieiro.accounts.infrastructure.persistence;
+package com.msieiro.accounts.domain;
 
-import com.msieiro.accounts.domain.Account;
-import com.msieiro.accounts.domain.AccountId;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AccountRepository
