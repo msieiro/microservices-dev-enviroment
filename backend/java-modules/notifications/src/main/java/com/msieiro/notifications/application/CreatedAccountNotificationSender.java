@@ -6,8 +6,9 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public record CreatedAccountNotificationService() {
+public class CreatedAccountNotificationSender {
     public void sendNotification(CreatedAccountNotificationRequest notificationRequest) {
-        log.info("Trying to send notification to email: {} and authKey: {}", notificationRequest.email(), notificationRequest.authKey());
+        log.info("Trying to send notification to email: {} and authKey: {}", notificationRequest.email(),
+            notificationRequest.authKey());
     }
 }
