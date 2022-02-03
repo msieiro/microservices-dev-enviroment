@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 public abstract class AggregateRoot extends AuditedEntity {
+
     private List<DomainEvent> domainEvents = new ArrayList<>();
 
     final public List<DomainEvent> pullDomainEvents() {

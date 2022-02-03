@@ -3,13 +3,15 @@ package com.msieiro.shared.domain.bus.event.accounts;
 import com.msieiro.shared.domain.bus.event.DomainEvent;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.HashMap;
 
 @Data
 @EqualsAndHashCode
-public class CreatedAccountDomainEvent extends DomainEvent {
+@ToString
+public final class CreatedAccountDomainEvent extends DomainEvent {
 
     private String email;
     private String password;
@@ -22,8 +24,8 @@ public class CreatedAccountDomainEvent extends DomainEvent {
 
     public CreatedAccountDomainEvent(String aggregateId, String email, String password) {
         super(aggregateId);
-        this.email = null;
-        this.password = null;
+        this.email = email;
+        this.password = password;
     }
 
     public CreatedAccountDomainEvent(
@@ -31,11 +33,10 @@ public class CreatedAccountDomainEvent extends DomainEvent {
         String eventId,
         String occurredOn,
         String email,
-        String password
-    ) {
+        String password) {
         super(aggregateId, eventId, occurredOn);
-        this.email = null;
-        this.password = null;
+        this.email = email;
+        this.password = password;
     }
 
     @Override
@@ -45,10 +46,12 @@ public class CreatedAccountDomainEvent extends DomainEvent {
 
     @Override
     public HashMap<String, Serializable> toPrimitives() {
-        return new HashMap<String, Serializable>() {{
-            put("email", email);
-            put("password", password);
-        }};
+        return new HashMap<String, Serializable>() {
+            {
+                put("email", email);
+                put("password", password);
+            }
+        };
     }
 
     @Override
@@ -56,15 +59,13 @@ public class CreatedAccountDomainEvent extends DomainEvent {
         String aggregateId,
         HashMap<String, Serializable> body,
         String eventId,
-        String occurredOn
-    ) {
+        String occurredOn) {
         return new CreatedAccountDomainEvent(
             aggregateId,
             eventId,
             occurredOn,
             (String) body.get("email"),
-            (String) body.get("password")
-        );
+            (String) body.get("password"));
     }
 
 }

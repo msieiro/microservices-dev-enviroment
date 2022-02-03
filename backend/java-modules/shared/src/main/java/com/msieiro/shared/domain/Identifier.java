@@ -1,7 +1,6 @@
 package com.msieiro.shared.domain;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;

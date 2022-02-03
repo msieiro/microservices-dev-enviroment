@@ -12,9 +12,11 @@ import javax.persistence.Embeddable;
 @Data
 public abstract class StringValueObject {
     private String value;
+
     public StringValueObject(String value) {
         this.value = value;
     }
+
     protected StringValueObject() {
         this.value = null;
     }

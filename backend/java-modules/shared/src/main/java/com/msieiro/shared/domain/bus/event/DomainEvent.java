@@ -1,6 +1,5 @@
 package com.msieiro.shared.domain.bus.event;
 
-import com.msieiro.shared.domain.AuditedEntity;
 import com.msieiro.shared.domain.Utils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -46,6 +45,5 @@ public abstract class DomainEvent implements Serializable {
         String aggregateId,
         HashMap<String, Serializable> body,
         String eventId,
-        String occurredOn
-    );
+        String occurredOn);
 }

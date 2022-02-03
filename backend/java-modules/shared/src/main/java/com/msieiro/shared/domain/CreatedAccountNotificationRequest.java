@@ -1,4 +1,6 @@
 package com.msieiro.shared.domain;
 
-public record CreatedAccountNotificationRequest(String email, String authKey) {
+import java.io.Serializable;
+
+public record CreatedAccountNotificationRequest(String email, String authKey) implements Serializable {
 }
