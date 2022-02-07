@@ -1,5 +1,6 @@
 package com.msieiro.shared.infrastructure.exception_handlers;
 
+import com.msieiro.shared.domain.DomainError;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -13,6 +14,15 @@ import java.util.HashMap;
 @ControllerAdvice
 @Slf4j
 public class GlobalControllerExceptionHandler {
+
+    @ExceptionHandler(DomainError.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorResponse exceptionHandler(DomainError e) {
+        HashMap<String, String> errors = new HashMap<>();
+        errors.put("error", e.getMessage());
+        return new ErrorResponse(errors);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

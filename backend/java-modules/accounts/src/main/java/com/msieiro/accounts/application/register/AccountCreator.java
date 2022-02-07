@@ -24,7 +24,7 @@ public class AccountCreator {
             password);
         Account account = Account.create(id, email, password);
         accountRepository.save(account);
-        rabbitMessagePublisher.publish(new CreatedAccountNotificationRequest(email.getEmail(), email.getEmail()),
+        rabbitMessagePublisher.publish(new CreatedAccountNotificationRequest(email.getEmail(), "6698"),
             "internal.exchange", "internal.notifications.routing-key");
         rabbitEventPublisher.publishEvents(account.pullDomainEvents(), "internal.exchange",
             "internal.domain_events.routing-key");

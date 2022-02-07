@@ -15,5 +15,5 @@ import java.util.Date;
 public abstract class AuditedEntity {
     @CreatedDate
     @Column(name = "created_date")
-    private String createdDate = new Date().toString();
+    private Date createdDate;
 }
