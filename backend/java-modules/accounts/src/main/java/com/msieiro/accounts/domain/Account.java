@@ -1,7 +1,7 @@
 package com.msieiro.accounts.domain;
 
 import com.msieiro.shared.domain.AggregateRoot;
-import com.msieiro.shared.domain.bus.event.accounts.CreatedAccountDomainEvent;
+import com.msieiro.shared.domain.bus.event.accounts.AccountCreatedDomainEvent;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,6 +33,14 @@ public class Account extends AggregateRoot implements Serializable {
     @Column(name = "role", nullable = false)
     private AccountRole role;
 
+    public Account(AccountId id, AccountEmail email, AccountPassword password) {
+        super();
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.role = AccountRole.ROLE_USER;
+    }
+
     public Account(String id, String email, String password) {
         super();
         this.id = new AccountId(id);
@@ -43,7 +51,7 @@ public class Account extends AggregateRoot implements Serializable {
 
     public static Account create(AccountId id, AccountEmail email, AccountPassword password) {
         Account account = new Account(id, email, password, AccountRole.ROLE_USER);
-        CreatedAccountDomainEvent event = new CreatedAccountDomainEvent(id.getAccountId(), email.getEmail(),
+        AccountCreatedDomainEvent event = new AccountCreatedDomainEvent(id.getAccountId(), email.getEmail(),
             password.getPassword());
         log.info("CreatedAccountDomainEvent created by method Account.create : {}", event);
         account.record(event);

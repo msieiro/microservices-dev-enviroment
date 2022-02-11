@@ -64,6 +64,7 @@ public class LoginAccountController extends ApiController {
         }
     }
 }
+
 @Data
 final class LoginAccountRequest {
 

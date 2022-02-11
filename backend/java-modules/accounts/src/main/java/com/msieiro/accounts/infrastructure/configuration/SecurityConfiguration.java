@@ -28,70 +28,70 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-  @Autowired
-  private AccountAuthenticator accountAuthenticator;
+    @Autowired
+    private AccountAuthenticator accountAuthenticator;
 
-  @Autowired
-  private MyUnauthorizedEntryPoint myUnauthorizedEntryPoint;
+    @Autowired
+    private MyUnauthorizedEntryPoint myUnauthorizedEntryPoint;
 
-  @Autowired
-  private MyAccessDeniedHandler myAccessDeniedHandler;
+    @Autowired
+    private MyAccessDeniedHandler myAccessDeniedHandler;
 
-  @Autowired
-  private TokenProvider tokenProvider;
+    @Autowired
+    private TokenProvider tokenProvider;
 
-  @Bean
-  @Override
-  public AuthenticationManager authenticationManagerBean() throws Exception {
-    return super.authenticationManagerBean();
-  }
-
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
-
-  @Override
-  public void configure(WebSecurity web) throws Exception {
-    web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
-  }
-
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    // @formatter:off
-    http.csrf().disable().exceptionHandling()
-      .authenticationEntryPoint(myUnauthorizedEntryPoint)
-      .accessDeniedHandler(myAccessDeniedHandler).and().headers()
-      .frameOptions().disable().and().sessionManagement()
-      .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-      .authorizeRequests().antMatchers(HttpMethod.POST,"/api/v1/accounts/create").permitAll()
-      .antMatchers(HttpMethod.POST, "/api/v1/accounts/login").permitAll()
-      .antMatchers(HttpMethod.GET, "/api/v1/accounts/activate").permitAll()
-      .antMatchers("/**").authenticated().and()
-      .apply(securityConfigurerAdapter());
-    // @formatter:on
-  }
-
-  @Bean
-  public WebMvcConfigurer corsConfigurer() {
-    return new WebMvcConfigurer() {
-      @Override
-      public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedMethods("*").allowedOrigins("http://localhost:8080");
-      }
-    };
-  }
-
-  @Autowired
-  public void configureAuth(AuthenticationManagerBuilder auth) {
-    try {
-      auth.userDetailsService(accountAuthenticator).passwordEncoder(passwordEncoder());
-    } catch (Exception e) {
-      throw new BeanInitializationException("SecurityConfiguration.configureAuth failed", e);
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
-  }
 
-  private JWTConfigurer securityConfigurerAdapter() {
-    return new JWTConfigurer(tokenProvider);
-  }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        // @formatter:off
+        http.csrf().disable().exceptionHandling()
+            .authenticationEntryPoint(myUnauthorizedEntryPoint)
+            .accessDeniedHandler(myAccessDeniedHandler).and().headers()
+            .frameOptions().disable().and().sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+            .authorizeRequests().antMatchers(HttpMethod.POST, "/api/v1/accounts/create").permitAll()
+            .antMatchers(HttpMethod.POST, "/api/v1/accounts/login").permitAll()
+            .antMatchers(HttpMethod.GET, "/api/v1/accounts/activate").permitAll()
+            .antMatchers("/**").authenticated().and()
+            .apply(securityConfigurerAdapter());
+        // @formatter:on
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedMethods("*").allowedOrigins("http://localhost:8080");
+            }
+        };
+    }
+
+    @Autowired
+    public void configureAuth(AuthenticationManagerBuilder auth) {
+        try {
+            auth.userDetailsService(accountAuthenticator).passwordEncoder(passwordEncoder());
+        } catch (Exception e) {
+            throw new BeanInitializationException("SecurityConfiguration.configureAuth failed", e);
+        }
+    }
+
+    private JWTConfigurer securityConfigurerAdapter() {
+        return new JWTConfigurer(tokenProvider);
+    }
 }

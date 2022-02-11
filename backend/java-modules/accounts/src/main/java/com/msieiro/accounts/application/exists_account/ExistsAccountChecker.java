@@ -14,9 +14,9 @@ public class ExistsAccountChecker {
     @Autowired
     private AccountRepository accountRepository;
 
-    public boolean accountExist(AccountEmail email){
+    public boolean accountExist(AccountEmail email) {
         Account account = accountRepository.findByEmail(email).orElse(null);
-        if(null == account) return false;
+        if (null == account) return false;
         return true;
     }
 }
