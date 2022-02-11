@@ -8,6 +8,8 @@ import com.msieiro.shared.domain.bus.command.CommandHandlerExecutionError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
+import java.util.List;
+
 @Service
 public final class InMemoryCommandBus implements CommandBus {
 
@@ -25,5 +27,12 @@ public final class InMemoryCommandBus implements CommandBus {
         } catch (Throwable error) {
             throw new CommandHandlerExecutionError(error);
         }
+    }
+
+    @Override
+    public void dispatches(List<Command> commands) throws CommandHandlerExecutionError {
+        commands.forEach(command -> {
+            this.dispatch(command);
+        });
     }
 }

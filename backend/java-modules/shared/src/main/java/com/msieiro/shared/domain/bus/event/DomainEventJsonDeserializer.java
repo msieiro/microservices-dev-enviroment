@@ -12,8 +12,11 @@ import java.util.HashMap;
 @Service
 public final class DomainEventJsonDeserializer {
 
-    @Autowired
-    private DomainEventsInformation information;
+    private final DomainEventsInformation information;
+
+    private DomainEventJsonDeserializer(final DomainEventsInformation information){
+        this.information = information;
+    }
 
     public DomainEvent deserialize(String body)
         throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {

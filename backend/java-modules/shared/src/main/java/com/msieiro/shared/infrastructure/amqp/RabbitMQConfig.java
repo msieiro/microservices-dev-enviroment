@@ -12,8 +12,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-    @Autowired
-    private ConnectionFactory connectionFactory;
+    private final ConnectionFactory connectionFactory;
+
+    public RabbitMQConfig(final ConnectionFactory connectionFactory){
+        this.connectionFactory = connectionFactory;
+    }
 
     @Bean
     public RabbitTemplate RabbitTemplate() {

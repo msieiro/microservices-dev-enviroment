@@ -20,14 +20,12 @@ public abstract class DomainEvent implements Serializable {
     private String occurredOn;
 
     public DomainEvent(String aggregateId) {
-        super();
         this.aggregateId = aggregateId;
         this.eventId = UUID.randomUUID().toString();
         this.occurredOn = Utils.dateToString(LocalDateTime.now());
     }
 
     public DomainEvent(String aggregateId, String eventId, String occurredOn) {
-        super();
         this.aggregateId = aggregateId;
         this.eventId = eventId;
         this.occurredOn = occurredOn;

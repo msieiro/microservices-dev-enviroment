@@ -17,8 +17,14 @@ import java.util.List;
 @Component
 public class RabbitMQEventPublisher implements EventBus {
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
+    private final String events_exchange = "internal.exchange";
+    private final String events_key = "internal.domain_events.routing-key";
+
+    private final RabbitTemplate rabbitTemplate;
+
+    public RabbitMQEventPublisher(final RabbitTemplate rabbitTemplate){
+        this.rabbitTemplate = rabbitTemplate;
+    }
 
     public void publishEvents(List<DomainEvent> domainEvents, String exchange, String routingKey) throws AmqpException {
         log.info("Publishing a total of {} events", domainEvents.size());
@@ -27,6 +33,25 @@ public class RabbitMQEventPublisher implements EventBus {
             this.publish(domainEvent, exchange, routingKey);
             // rabbitTemplate.convertAndSend(exchange, routingKey, domainEvent);
             log.info("Published! to {} using routingKey {}. Payload: {}", exchange, routingKey, domainEvent);
+        });
+    }
+
+    @Override
+    public void publish(final List<DomainEvent> domainEvents) {
+        domainEvents.forEach(domainEvent -> {
+            log.info("Publishing to {} using routingKey {}. Payload: {}", events_exchange, events_key, domainEvent.toString());
+            String serializedDomainEvent = DomainEventJsonSerializer.serialize(domainEvent);
+
+            Message message = new Message(
+                serializedDomainEvent.getBytes(),
+                MessagePropertiesBuilder.newInstance()
+                    .setContentEncoding("utf-8")
+                    .setContentType("application/json")
+                    .build());
+
+            rabbitTemplate.send(events_exchange, events_key, message);
+            // rabbitTemplate.convertAndSend(exchange, routingKey, domainEvent);
+            log.info("Published! to {} using routingKey {}. Payload: {}", events_exchange, events_key, domainEvent);
         });
     }
 

@@ -10,5 +10,5 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 public class JWTToken {
-  private String token;
+    private String token;
 }

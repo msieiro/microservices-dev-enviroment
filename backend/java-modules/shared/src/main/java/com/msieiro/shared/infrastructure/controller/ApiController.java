@@ -12,7 +12,7 @@ public abstract class ApiController {
     private final CommandBus commandBus;
 
     public ApiController(QueryBus queryBus, CommandBus commandBus) {
-        this.queryBus   = queryBus;
+        this.queryBus = queryBus;
         this.commandBus = commandBus;
     }
 
