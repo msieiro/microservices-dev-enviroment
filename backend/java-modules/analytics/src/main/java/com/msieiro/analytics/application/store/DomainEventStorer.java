@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Service
 public class DomainEventStorer {
 
-    @Autowired
-    private DomainEventsRepository repository;
+    private final DomainEventsRepository repository;
+
+    public DomainEventStorer(final DomainEventsRepository repository){
+        this.repository = repository;
+    }
 
     public void store(
         AnalyticsDomainEventId id,

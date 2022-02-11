@@ -19,7 +19,7 @@ public class DomainEventConsumer {
     @Autowired
     private DomainEventsConsumerRepository domainEventsConsumerRepository;
 
-    protected DomainEventConsumer(DomainEventsConsumerRepository domainEventsConsumerRepository){
+    protected DomainEventConsumer(DomainEventsConsumerRepository domainEventsConsumerRepository) {
         this.domainEventsConsumerRepository = domainEventsConsumerRepository;
         //this.consume();
     }

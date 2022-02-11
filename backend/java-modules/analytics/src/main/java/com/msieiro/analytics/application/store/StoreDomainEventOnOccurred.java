@@ -18,11 +18,13 @@ import java.lang.reflect.InvocationTargetException;
 @Service
 public class StoreDomainEventOnOccurred {
 
-    @Autowired
-    private DomainEventStorer storer;
+    private final DomainEventStorer storer;
+    private final DomainEventJsonDeserializer deserializer;
 
-    @Autowired
-    private DomainEventJsonDeserializer deserializer;
+    public StoreDomainEventOnOccurred(final DomainEventStorer storer, final DomainEventJsonDeserializer deserializer){
+        this.storer = storer;
+        this.deserializer = deserializer;
+    }
 
     @RabbitListener(queues = "${rabbitmq.queue.domain_events}", autoStartup = "true")
     public void consumer(Message message)
